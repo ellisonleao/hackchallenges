@@ -5,16 +5,19 @@ import (
 	"sort"
 )
 
+// Record represents the tree inputs
 type Record struct {
 	ID     int
 	Parent int
 }
 
+// Node represents a tree node data
 type Node struct {
 	ID       int
 	Children []*Node
 }
 
+// Records represents a slice of Record types
 type Records []Record
 
 var (
@@ -27,6 +30,7 @@ func (r Records) Len() int           { return len(r) }
 func (r Records) Swap(i, j int)      { r[i], r[j] = r[j], r[i] }
 func (r Records) Less(i, j int) bool { return r[i].ID < r[j].ID }
 
+// Build grabs a slice of records and outputs a tree
 func Build(records []Record) (*Node, error) {
 	if len(records) == 0 {
 		return nil, nil
