@@ -21,14 +21,8 @@ type Node struct {
 type Records []Record
 
 var (
-	errRootWithParent = errors.New("Root must not have parents")
-	errNoRoot         = errors.New("tree does not have root node")
-	errMissingNode    = errors.New("missing node")
+	errBase = errors.New("wrong tree")
 )
-
-func (r Records) Len() int           { return len(r) }
-func (r Records) Swap(i, j int)      { r[i], r[j] = r[j], r[i] }
-func (r Records) Less(i, j int) bool { return r[i].ID < r[j].ID }
 
 // Build grabs a slice of records and outputs a tree
 func Build(records []Record) (*Node, error) {
@@ -36,38 +30,22 @@ func Build(records []Record) (*Node, error) {
 		return nil, nil
 	}
 
-	sort.Sort(Records(records))
+	sort.Slice(records, func(i, j int) bool {
+		return records[i].ID < records[j].ID
+	})
 
-	if records[0].ID != 0 {
-		return nil, errNoRoot
-	}
-
-	if records[0].Parent != 0 {
-		return nil, errRootWithParent
-	}
-
-	root := &Node{}
 	nodes := make([]*Node, len(records))
-	nodes[0] = root
-
-	for i := 1; i < len(records); i++ {
-		r := records[i]
-		if r.ID != i {
-			return nil, errMissingNode
+	for idx, r := range records {
+		if r.ID != idx || r.Parent > r.ID || r.ID > 0 && r.Parent == r.ID {
+			return nil, errBase
 		}
 
-		child := &Node{ID: r.ID}
-		parent := nodes[r.Parent]
-		if parent == nil {
-			return nil, errMissingNode
+		nodes[idx] = &Node{ID: r.ID}
+		if r.ID != 0 {
+			nodes[r.Parent].Children = append(nodes[r.Parent].Children, nodes[r.ID])
 		}
 
-		if parent.Children == nil {
-			parent.Children = []*Node{}
-		}
-		parent.Children = append(parent.Children, child)
-		nodes[r.ID] = child
 	}
 
-	return root, nil
+	return nodes[0], nil
 }
