@@ -2,6 +2,7 @@ package tree
 
 import (
 	"errors"
+	"fmt"
 	"sort"
 )
 
@@ -37,7 +38,7 @@ func Build(records []Record) (*Node, error) {
 	nodes := make([]*Node, len(records))
 	for idx, r := range records {
 		if r.ID != idx || r.Parent > r.ID || r.ID > 0 && r.Parent == r.ID {
-			return nil, errBase
+			return nil, fmt.Errorf("bad record %+v", r)
 		}
 
 		nodes[idx] = &Node{ID: r.ID}
