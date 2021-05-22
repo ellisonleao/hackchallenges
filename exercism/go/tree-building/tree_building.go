@@ -1,7 +1,6 @@
 package tree
 
 import (
-	"errors"
 	"fmt"
 	"sort"
 )
@@ -21,10 +20,6 @@ type Node struct {
 // Records represents a slice of Record types
 type Records []Record
 
-var (
-	errBase = errors.New("wrong tree")
-)
-
 // Build grabs a slice of records and outputs a tree
 func Build(records []Record) (*Node, error) {
 	if len(records) == 0 {
@@ -36,12 +31,12 @@ func Build(records []Record) (*Node, error) {
 	})
 
 	nodes := make([]*Node, len(records))
-	for idx, r := range records {
-		if r.ID != idx || r.Parent > r.ID || r.ID > 0 && r.Parent == r.ID {
+	for i, r := range records {
+		if r.ID != i || r.Parent > r.ID || r.ID > 0 && r.Parent == r.ID {
 			return nil, fmt.Errorf("bad record %+v", r)
 		}
 
-		nodes[idx] = &Node{ID: r.ID}
+		nodes[i] = &Node{ID: r.ID}
 		if r.ID != 0 {
 			nodes[r.Parent].Children = append(nodes[r.Parent].Children, nodes[r.ID])
 		}
