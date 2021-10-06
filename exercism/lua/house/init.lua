@@ -1,3 +1,3 @@
-local house = require('house')
+local house = require("house")
 
 print(house.recite())

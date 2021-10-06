@@ -1,0 +1,21 @@
+{
+  "blurb": "Simulate a bank account supporting opening/closing, withdraws, and deposits of money. Watch out for concurrent transactions!",
+  "authors": [
+    "ryanplusplus"
+  ],
+  "contributors": [
+    "aarti",
+    "refacto"
+  ],
+  "files": {
+    "solution": [
+      "bank-account.lua"
+    ],
+    "test": [
+      "bank-account_spec.lua"
+    ],
+    "example": [
+      ".meta/example.lua"
+    ]
+  }
+}
