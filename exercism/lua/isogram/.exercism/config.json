@@ -1,0 +1,22 @@
+{
+  "blurb": "Determine if a word or phrase is an isogram.",
+  "authors": [
+    "ryanplusplus"
+  ],
+  "contributors": [
+    "aarti"
+  ],
+  "files": {
+    "solution": [
+      "isogram.lua"
+    ],
+    "test": [
+      "isogram_spec.lua"
+    ],
+    "example": [
+      ".meta/example.lua"
+    ]
+  },
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Isogram"
+}
