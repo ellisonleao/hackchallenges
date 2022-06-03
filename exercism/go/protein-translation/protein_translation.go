@@ -1,9 +1,6 @@
 package protein
 
-import (
-	"errors"
-	"fmt"
-)
+import "errors"
 
 var (
 	ErrStop        = errors.New("stop error")
@@ -22,7 +19,6 @@ func FromRNA(rna string) ([]string, error) {
 			codon += string(rna[j+i])
 		}
 
-		fmt.Println("========== codon - ", codon)
 		c, err := FromCodon(codon)
 		if err != nil {
 			if errors.Is(err, ErrStop) {
