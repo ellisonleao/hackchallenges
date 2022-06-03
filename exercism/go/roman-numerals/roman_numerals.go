@@ -30,14 +30,11 @@ func ToRomanNumeral(input int) (string, error) {
 	}
 	var output string
 
-	fmt.Println("=========== START")
 	for _, num := range mappings {
 		for input >= num.numeral {
-			fmt.Println("output -> ", output)
 			output += num.roman
 			input -= num.numeral
 		}
 	}
-	fmt.Println("=========== END = ", output)
 	return output, nil
 }
